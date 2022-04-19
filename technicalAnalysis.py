@@ -1,6 +1,10 @@
 import pandas as pd
 from datetime import *
 import time
+from skyfield.api import *
+from skyfield.framelib import *
+from skyfield import almanac
+from skyfield import api
 
 # Data
 class Date:
@@ -95,3 +99,37 @@ class Astronomy:
         def printMoonPhase(self):
             print(self.getMoonPhase())
             return self
+
+class Astronomy_Skyfield:
+    date = datetime.utcnow()
+    referenceDatetime = date.year,date.month,date.day, date.hour, date.minute
+
+    def setDatetime(self,date,GMT=0):
+        self.referenceDatetime  = date.year,date.month,date.day, date.hour + -GMT, date.minute
+        return self
+
+    def setlatlong(self,latitude,longitude):
+        latlong = latitude, longitude
+        return latlong
+
+    def getMoonPhase(self):
+        ts = load.timescale()
+        eph = api.load('de421.bsp')
+        t = ts.utc(*self.referenceDatetime)
+        phase = almanac.moon_phase(eph, t)
+        return ('Moon phase: {:.1f} degrees'.format(phase.degrees))
+
+    def getPlanetPhase(self, lat = 42.21 * N, long= -71.03 * W, planet='mars'): 
+        ts = load.timescale()
+        t = ts.utc(*self.dateParams)
+
+        eph = load('de421.bsp')
+        sun, Planet, earth = eph['sun'], eph[planet], eph['earth']
+        city = earth + wgs84.latlon(lat, long)
+
+        c = city.at(t)
+        _, m, _ = c.observe(Planet).apparent().frame_latlon(ecliptic_frame)
+        _, s, _ = c.observe(sun).apparent().frame_latlon(ecliptic_frame)
+        phase = (m.degrees - s.degrees) % 360.0
+
+        return ('{0:.1f}'.format(phase))
