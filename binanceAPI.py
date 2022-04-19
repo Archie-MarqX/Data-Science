@@ -4,7 +4,88 @@ import time
 import warnings
 warnings.filterwarnings("ignore")
 
-# Klines
+# spot Klines
+class spot_Kline:
+    def __init__(self,api_key,secret_key):
+        self.client = Client(api_key,secret_key)
+
+    def getSpotKline(self,startTime, endTime, interval=KLINE_INTERVAL_2HOUR, symbol='BTCUSDT'):
+        request = self.client.get_klines(
+            symbol=symbol,
+            interval=interval,
+            startTime=startTime,
+            endTime=endTime,
+            limit=1000
+        )
+        return request
+
+    def getAllKlines(self,interval,interval_ms, firstCandleTime = 1502942400000):
+        START = time.time()
+        klines_list = []
+        timeLoop_list = []
+        index = 0
+        initialTime = firstCandleTime
+        maxInterval = interval_ms * 1000 
+        initialTime = initialTime - maxInterval
+        while True:
+            index += 1
+            initialTime += maxInterval
+            timeLoop_list.append(initialTime)
+            if timeLoop_list[-1] + maxInterval < int(time.time() * 1000):
+                requestTimeStart = time.time()
+                klinesLoop = self.spot_Kline(timeLoop_list[index-1], timeLoop_list[index-1] + maxInterval, interval)
+                klines_list.extend(klinesLoop)
+                print("\nLoop : "+str(index))
+                print("\nQtd  : "+str(len(klines_list)))
+                requestTimeEnd = time.time()
+                requestDuration = requestTimeEnd - requestTimeStart
+                if requestDuration < 1.33:
+                    time.sleep(1.33 - requestDuration)
+            else:
+                print("Else Reached!")
+                lastCall = self.spot_Kline(timeLoop_list[-1] + 1, int(time.time() * 1000), interval)
+                klines_list.extend(lastCall)
+                print("\nQtd  : "+str(len(klines_list)))
+                print("\nLoop Finalizado\n")
+                
+                END = time.time()
+                print("\nExecution time: "+str(END-START))
+                break
+        return klines_list
+
+    def getHistoricalKlines(self,interval,interval_ms, firstCandleTime = 1502942400000):
+        START = time.time()
+        klines_list = []
+        timeLoop_list = []
+        index = 0
+        initialTime = firstCandleTime
+        maxInterval = interval_ms * 1000 
+        initialTime = initialTime - maxInterval
+        while True:
+            index += 1
+            initialTime += maxInterval
+            timeLoop_list.append(initialTime)
+            if timeLoop_list[-1] + maxInterval < int(time.time() * 1000):
+                requestTimeStart = time.time()
+                klinesLoop = self.spot_Kline(timeLoop_list[index-1], timeLoop_list[index-1] + maxInterval, interval)
+                klines_list.extend(klinesLoop)
+                print("\nLoop : "+str(index))
+                print("\nQtd  : "+str(len(klines_list)))
+                requestTimeEnd = time.time()
+                requestDuration = requestTimeEnd - requestTimeStart
+                if requestDuration < 1.33:
+                    time.sleep(1.33 - requestDuration)
+            else:
+                print("\nLoop Finalizado\n")
+                
+                END = time.time()
+                print("\nExecution time: "+str(END-START))
+                print(timeLoop_list[index-1])
+                print(timeLoop_list[-1])
+                break
+        return klines_list
+
+# coin-M Klines
 class coin_Kline:
     def __init__(self,api_key,secret_key):
         self.client = Client(api_key,secret_key)
