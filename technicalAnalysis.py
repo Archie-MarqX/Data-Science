@@ -48,42 +48,48 @@ class indicators:
 class Astronomy:
     class MoonPhase:
         date = datetime.today()
+        SynodicPeriod   = 29.530589
 
         def setDate(self, date):
-            self.date = date
+            self.date   = date
             return self
 
         def calculateDaysIntoCycle(self,date):
-            year =  date.year
-            month = date.month
-            day =   date.day
-            A = int(year / 100)
-            B = int(A / 4)
-            C = 2 - A + B
-            E = int(365.25 * (year + 4716))
-            F = int(30.6001 * (month + 1))
-            JD = C + day + E + F - 1524.5
-            daysSinceNew = JD - 2451549.5
-            newMoons = daysSinceNew / 29.53
-            daysIntoCycle = (newMoons - int(newMoons)) * 29.53
+            year            = date.year
+            month           = date.month
+            day             = date.day
+            A               = int(year / 100)
+            B               = int(A / 4)
+            C               = 2 - A + B
+            E               = int(365.25 * (year + 4716))
+            F               = int(30.6001 * (month + 1))
+            JD              = C + day + E + F - 1524.5
+            daysSinceNew    = JD - 2451549.5
+            newMoons        = daysSinceNew / self.SynodicPeriod
+            daysIntoCycle   = (newMoons - int(newMoons)) * self.SynodicPeriod
             return daysIntoCycle
 
         def getCurrentMoonPhase(self,daysIntoCycle):
-            if (daysIntoCycle < 7):
+            FirstQuarter    = self.SynodicPeriod * 0.25
+            SecondQuarter   = self.SynodicPeriod * 0.5
+            ThirdQuarter    = self.SynodicPeriod * 0.75
+            LastQuarter     = self.SynodicPeriod
+
+            if (daysIntoCycle < FirstQuarter):
                 return 'Lua Nova'
-            elif(daysIntoCycle >= 7 and daysIntoCycle < 15):
+            elif(daysIntoCycle >= FirstQuarter and daysIntoCycle < SecondQuarter):
                 return 'Quarto Crescente'
-            elif(daysIntoCycle >= 15 and daysIntoCycle < 22):
+            elif(daysIntoCycle >= SecondQuarter and daysIntoCycle < ThirdQuarter):
                 return 'Lua Cheia'
-            elif(daysIntoCycle >= 22 and daysIntoCycle < 29):
+            elif(daysIntoCycle >= ThirdQuarter and daysIntoCycle < LastQuarter):
                 return 'Quarto Minguante '
-            elif(daysIntoCycle >= 29.5):
+            elif(daysIntoCycle >= LastQuarter):
                 return 'Lua Nova'
 
         def getMoonPhase(self):
-            daysIntoCycle = self.calculateDaysIntoCycle(self.date)
-            currentMoonPhase = self.getCurrentMoonPhase(daysIntoCycle)
-            daysIntoCycle = round(daysIntoCycle, 2)
+            daysIntoCycle       = self.calculateDaysIntoCycle(self.date)
+            currentMoonPhase    = self.getCurrentMoonPhase(daysIntoCycle)
+            daysIntoCycle       = round(daysIntoCycle, 2)
             return daysIntoCycle, currentMoonPhase
 
         def printMoonPhase(self):
