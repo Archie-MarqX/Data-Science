@@ -9,7 +9,7 @@ from skyfield import api
 # Data
 class Date:
     def get_date(self,Unix):
-        get_Date = datetime.fromtimestamp(Unix / 1000)
+        get_Date = datetime.utcfromtimestamp(Unix / 1000)
         return get_Date
     
     def get_unix(self,Date):
@@ -117,7 +117,7 @@ class Astronomy_Skyfield:
         eph = api.load('de421.bsp')
         t = ts.utc(*self.referenceDatetime)
         phase = almanac.moon_phase(eph, t)
-        return ('Moon phase: {:.1f} degrees'.format(phase.degrees))
+        return phase.degrees
 
     def getPlanetPhase(self, lat = 42.21 * N, long= -71.03 * W, planet='mars'): 
         ts = load.timescale()
@@ -132,8 +132,8 @@ class Astronomy_Skyfield:
         _, s, _ = c.observe(sun).apparent().frame_latlon(ecliptic_frame)
         phase = (m.degrees - s.degrees) % 360.0
 
-        return ('{0:.1f}'.format(phase))
-    
+        return phase
+
 class Attribute:
     def attr_loop(klines):
         timeOpen_List   = []
