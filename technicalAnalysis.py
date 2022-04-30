@@ -1,10 +1,11 @@
-import pandas as pd
-from datetime import *
-import time
-from skyfield.api import *
-from skyfield.framelib import *
-from skyfield import almanac
-from skyfield import api
+# Import libraries
+import  pandas  as pd
+import  time    as t
+from    datetime            import *
+from    skyfield.api        import *
+from    skyfield.framelib   import *
+from    skyfield            import almanac
+from    skyfield            import api
 
 # Data
 class Date:
@@ -105,14 +106,14 @@ class Astronomy_Skyfield:
         W = dateTime[PT3:]
 
         moonType = []
-        start = time.time()
+        start = t.time()
 
         print("Loop de Atribuição iniciado")
         for x in X:
             moon = self.setDatetime(x).getMoonPhase()
             moonType.append(moon)
 
-        PT1 = time.time()
+        PT1 = t.time()
         print('25% Concluido')
         print(len(moonType))
         print(str(PT1 - start)+'\n')
@@ -121,7 +122,7 @@ class Astronomy_Skyfield:
             moon = self.setDatetime(x).getMoonPhase()
             moonType.append(moon)
 
-        PT2 = time.time()
+        PT2 = t.time()
         print('50% Concluido')
         print(len(moonType))
         print(str(PT2 - PT1)+'\n')
@@ -130,7 +131,7 @@ class Astronomy_Skyfield:
             moon = self.setDatetime(x).getMoonPhase()
             moonType.append(moon)
 
-        PT3 = time.time()
+        PT3 = t.time()
         print('75% Concluido')
         print(len(moonType))
         print(str(PT3 - PT2)+'\n')
@@ -139,7 +140,7 @@ class Astronomy_Skyfield:
             moon = self.setDatetime(x).getMoonPhase()
             moonType.append(moon)
 
-        PT4 = time.time()
+        PT4 = t.time()
         print('100% Concluido')
         print(len(moonType))
         print(str(PT4 - PT3)+'\n')

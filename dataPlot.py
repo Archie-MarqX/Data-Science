@@ -1,4 +1,5 @@
-import matplotlib.pyplot    as  plt
+# Import libraries
+import  matplotlib.pyplot    as  plt
 
 class DataPlot:
     def simplePlot(self, data, title, x='Data', y='USD'):
