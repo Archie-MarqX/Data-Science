@@ -85,6 +85,45 @@ class spot_Kline:
                 break
         return klines_list
 
+class Source:
+    def getSourceList(klines):
+        openTime_List   = []
+        open_List       = []
+        high_List       = []
+        low_List        = []
+        close_List      = []
+        h2_List         = []
+        hlc3_List       = []
+        ohlc4_List      = []
+        volume_List     = []
+        closeTime_List  = []
+
+        for x in klines:
+            openTime_List.append(int(x[0]))
+            open_List.append(float(x[1]))
+            high_List.append(float(x[2]))
+            low_List.append(float(x[3]))
+            close_List.append(float(x[4]))
+            volume_List.append(float(x[5]))
+            closeTime_List.append(int(x[6]))
+
+            h2_List.append(float((float(x[2]) + float(x[3]))) / 2)
+            hlc3_List.append(float((float(x[2]) + float(x[3]) + float(x[4])) / 3))
+            ohlc4_List.append(float((float(x[1]) + float(x[2]) + float(x[3]) + float(x[4])) / 4))
+
+        KlineValues = {
+            "Open Time" : openTime_List,
+            "Close Time": closeTime_List,
+            "Open"      : open_List,
+            "High"      : high_List,
+            "Low"       : low_List,
+            "Close"     : close_List,
+            "Volume"    : volume_List,
+            "H2"        : h2_List,
+            "HLC3"      : hlc3_List,
+            "OHLC4"     : ohlc4_List,
+        }
+        return KlineValues
 # coin-M Klines
 class coin_Kline:
     def __init__(self,api_key,secret_key):
