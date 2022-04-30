@@ -53,57 +53,6 @@ class indicators:
         macdSignal['Histogram'] = macdSignal['MACD'] - macdSignal['MACD_Signal']
         return macdSignal['Histogram']
 
-class Astronomy:
-    class MoonPhase:
-        date = datetime.today()
-        SynodicPeriod   = 29.530589
-
-        def setDate(self, date):
-            self.date   = date
-            return self
-
-        def calculateDaysIntoCycle(self,date):
-            year            = date.year
-            month           = date.month
-            day             = date.day
-            A               = int(year / 100)
-            B               = int(A / 4)
-            C               = 2 - A + B
-            E               = int(365.25 * (year + 4716))
-            F               = int(30.6001 * (month + 1))
-            JD              = C + day + E + F - 1524.5
-            daysSinceNew    = JD - 2451549.5
-            newMoons        = daysSinceNew / self.SynodicPeriod
-            daysIntoCycle   = (newMoons - int(newMoons)) * self.SynodicPeriod
-            return daysIntoCycle
-
-        def getCurrentMoonPhase(self,daysIntoCycle):
-            FirstQuarter    = self.SynodicPeriod * 0.25
-            SecondQuarter   = self.SynodicPeriod * 0.5
-            ThirdQuarter    = self.SynodicPeriod * 0.75
-            LastQuarter     = self.SynodicPeriod
-
-            if (daysIntoCycle < FirstQuarter):
-                return 'Lua Nova'
-            elif(daysIntoCycle >= FirstQuarter and daysIntoCycle < SecondQuarter):
-                return 'Quarto Crescente'
-            elif(daysIntoCycle >= SecondQuarter and daysIntoCycle < ThirdQuarter):
-                return 'Lua Cheia'
-            elif(daysIntoCycle >= ThirdQuarter and daysIntoCycle < LastQuarter):
-                return 'Quarto Minguante '
-            elif(daysIntoCycle >= LastQuarter):
-                return 'Lua Nova'
-
-        def getMoonPhase(self):
-            daysIntoCycle       = self.calculateDaysIntoCycle(self.date)
-            currentMoonPhase    = self.getCurrentMoonPhase(daysIntoCycle)
-            daysIntoCycle       = round(daysIntoCycle, 2)
-            return daysIntoCycle, currentMoonPhase
-
-        def printMoonPhase(self):
-            print(self.getMoonPhase())
-            return self
-
 class Astronomy_Skyfield:
     date = datetime.utcnow()
     referenceDatetime = date.year,date.month,date.day, date.hour, date.minute
