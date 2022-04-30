@@ -33,3 +33,12 @@ eixoY = 'Retorno em %'
 
 plot.simplePlot(dfBase, ticker, eixoX, eixoY)
 plot.simplePlot(df['Adj Close'].pct_change(1).shift(-1).cumsum(), ticker, eixoX, eixoY)
+
+# %%
+
+u       = dfBase.mean() # media de retorno
+sd      = dfBase.std()  # desvio padrão do retorno
+
+# %%
+print('Média De Retorno: '+str(u))
+print('Média De Desvio Padrão: '+str(sd))
