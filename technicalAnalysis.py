@@ -229,35 +229,3 @@ class Astronomy_Skyfield:
                 moonPhases.append('Lua Nova')
 
         return moonPhases
-
-class Attribute:
-    def attr_loop(klines):
-        timeOpen_List   = []
-        open_List       = []
-        high_List       = []
-        low_List        = []
-        close_List      = []
-        h2_List         = []
-        hlc3_List       = []
-        ohlc4_List      = []
-
-        for x in klines:
-            timeOpen_List.append(int(x[0]))
-            open_List.append(float(x[1]))
-            high_List.append(float(x[2]))
-            low_List.append(float(x[3]))
-            close_List.append(float(x[4]))
-            h2_List.append(float((float(x[2]) + float(x[3]))) / 2)
-            hlc3_List.append(float((float(x[2]) + float(x[3]) + float(x[4])) / 3))
-            ohlc4_List.append(float((float(x[1]) + float(x[2]) + float(x[3]) + float(x[4])) / 4))
-
-        KlineValues = {
-            "TimeOpen": timeOpen_List,
-            "Open": open_List,
-            "High": high_List,
-            "Low": low_List,
-            "Close": close_List,
-            "H2": h2_List,
-            "HLC3": hlc3_List,
-            "OHLC4": ohlc4_List,
-        }
