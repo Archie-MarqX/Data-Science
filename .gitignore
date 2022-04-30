@@ -2,3 +2,6 @@
 __pycache__/technicalAnalysis.cpython-310.pyc
 __pycache__/binanceAPI.cpython-310.pyc
 keys.json
+__pycache__/dataPlot.cpython-310.pyc
+.gitignore
+__pycache__/strategy.cpython-310.pyc
