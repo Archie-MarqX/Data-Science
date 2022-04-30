@@ -20,6 +20,10 @@ class Date:
         get_datetime = datetime.strptime(time, '%Y-%m-%d %H:%M:%S')
         return get_datetime
 
+class CSV:
+    def getCSV(self,dataFrame, fileName):
+        dataFrame.to_csv(fileName, index=False,  encoding='utf-8')
+
 # Indicadores
 class indicators:
     def sma(self,source, length):
