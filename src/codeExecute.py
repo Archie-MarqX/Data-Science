@@ -6,6 +6,7 @@ import strategy as st
 
 # Import Libraries
 import yfinance as yf
+from tkinter  import *
 
 Astro = sky.Skyfield()
 plot = dp.DataPlot()
@@ -58,3 +59,37 @@ def Asset_Return(ticker):
     plot.simple_Plot(config)
 
     return yahoo_DataFrame
+
+root = Tk()
+root.title("Ticker Chart")
+
+def MP_Input():
+    INPUT = inputtxt.get("1.0", "end-1c")
+    if type(INPUT) == str:
+        Moon_Phase_Strategy(INPUT)
+
+def Asset_Input():
+    INPUT = inputtxt.get("1.0", "end-1c")
+    if type(INPUT) == str:
+        Asset_Return(INPUT)
+
+l = Label(text = "Ticker")
+inputtxt = Text(root, height = 1,
+                width = 30,
+                bg = "light yellow")
+
+mp_Button = Button(root, height = 1,
+                 width = 30,
+                 text ="Show Moon Phase Chart",
+                 command = lambda:MP_Input())
+
+asset_Button = Button(root, height = 1,
+                 width = 30,
+                 text ="Show Asset Return Chart",
+                 command = lambda:Asset_Input())
+
+l.pack()
+inputtxt.pack()
+mp_Button.pack()
+asset_Button.pack()
+root.mainloop()
