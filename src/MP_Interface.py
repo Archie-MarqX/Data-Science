@@ -39,11 +39,9 @@ def Moon_Phase_Strategy(ticker):
 
     mean_Return = moon_Phase_DataFrame["Retorno_MP"].mean()  # media de retorno
     std_Return = moon_Phase_DataFrame["Retorno_MP"].std()  # desvio padrão do retorno
-    sharpe_Ratio = (mean_Return - 0.01) / std_Return  # sharpe ratio
     
     print("Média De Retorno: " + str(mean_Return))
     print("Média De Desvio Padrão: " + str(std_Return))
-    print("Sharpe Ratio: " + str(sharpe_Ratio))
 
 def Asset_Return(ticker):
     yahoo_DataFrame = yf.download(ticker)
