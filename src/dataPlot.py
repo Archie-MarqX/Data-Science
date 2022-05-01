@@ -41,11 +41,15 @@ class DataPlot:
                 min(dataPlotConfig.data.index.values),
                 max(dataPlotConfig.data.index.values),
             )
+            y = dataPlotConfig.data.values
             plt.vlines(dataPlotConfig.data.idxmax(), 0, dataPlotConfig.data.max())
             plt.title(dataPlotConfig.title)
             plt.legend(loc="lower right")
+            plt.ylim(min(y), max(y))
+            plt.xlim(min(dataPlotConfig.data.index), max(dataPlotConfig.data.index))
             plt.xlabel(dataPlotConfig.axis_X)
             plt.ylabel(dataPlotConfig.axis_Y)
+            plt.grid('True')
             plt.show()
         except Exception as e:
             print("[Error]: " + str(e))
