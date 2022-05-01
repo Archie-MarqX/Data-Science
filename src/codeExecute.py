@@ -41,3 +41,20 @@ def Moon_Phase_Strategy(ticker):
     
     print("Média De Retorno: " + str(mean_Return))
     print("Média De Desvio Padrão: " + str(std_Return))
+
+def Asset_Return(ticker):
+    yahoo_DataFrame = yf.download(ticker)
+    yahoo_DataFrame['Asset Return'] = yahoo_DataFrame["Adj Close"].pct_change(1).shift(-1).cumsum()
+    yahoo_DataFrame = yahoo_DataFrame[~yahoo_DataFrame['Asset Return'].isna()]
+
+    config = (
+        plot.DataPlotConfig()
+        .set_Axis_X_Name("Data")
+        .set_Axis_Y_Name("Retorno em %")
+        .set_Title(ticker)
+        .set_dataFrame(yahoo_DataFrame['Asset Return'])
+    )  # set DataPlotConfig object
+
+    plot.simple_Plot(config)
+
+    return yahoo_DataFrame
