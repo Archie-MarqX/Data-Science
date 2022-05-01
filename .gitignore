@@ -1,7 +1,8 @@
-
-__pycache__/technicalAnalysis.cpython-310.pyc
 __pycache__/binanceAPI.cpython-310.pyc
-keys.json
+src/codeExecute.py
 __pycache__/dataPlot.cpython-310.pyc
-.gitignore
 __pycache__/strategy.cpython-310.pyc
+__pycache__/technicalAnalysis.cpython-310.pyc
+src/__pycache__/codeExecute.cpython-310.pyc
+src/__pycache__/Skyfield.cpython-310.pyc
+src/shared/__pycache__/Util.cpython-310.pyc
