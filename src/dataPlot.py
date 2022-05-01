@@ -49,3 +49,35 @@ class DataPlot:
             plt.show()
         except Exception as e:
             print("[Error]: " + str(e))
+
+    def complex_Plot(self, dataPlotConfig: DataPlotConfig):
+        dateList = []
+
+        for element in dataPlotConfig.data.index:
+            month = str(element.month)
+            year = str(element.year)
+            if len(month) == 1 and month.startswith("1"):
+                dateList.append(str(year))
+            elif (
+                month.startswith("3") or month.startswith("6") or month.startswith("9")
+            ):
+                dateList.append(month)
+            else:
+                dateList.append(None)
+
+        axis_X = dateList
+        # create an index for each tick position
+        tick_X = list(range(len(axis_X)))
+        y = dataPlotConfig.data.values * 100
+
+        plt.figure(figsize=(26.66667, 15))
+        plt.plot(tick_X, y, marker="o", color="b", label="Retorno")
+        plt.ylim(min(y), max(y))
+        plt.xlim(min(tick_X), max(tick_X))
+        plt.xlabel(dataPlotConfig.axis_X)
+        plt.ylabel(dataPlotConfig.axis_Y)
+        plt.xticks(tick_X, axis_X)
+        plt.title(dataPlotConfig.title)
+        plt.legend()
+        plt.grid(True, axis="both")
+        plt.show()
