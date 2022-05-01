@@ -109,7 +109,7 @@ class Skyfield:
         print(len(moon_Degree))
         print(str(t.time() - third_Quarter_Time) + "\n")
 
-        print("Duration: " + str(t.time() - start))
+        print("Duration: " + str(t.time() - start)+ "\n")
         return moon_Degree
 
     def get_Moon_Phases_(self, moon_Degree):
