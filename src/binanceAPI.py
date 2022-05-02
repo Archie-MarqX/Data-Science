@@ -1,5 +1,4 @@
 # %%
-import warnings
 import time as t
 from binance.client import Client
 from binance.enums import *
