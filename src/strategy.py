@@ -1,6 +1,6 @@
 # Import Dependencies
 import technicalAnalysis as ta
-import Skyfield as sky
+import skyfield as sky
 
 # Import libraries
 import pandas as pd
