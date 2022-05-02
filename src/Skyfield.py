@@ -12,6 +12,7 @@ from skyfield import api
 get_Percent = Util.Util().get_Percent
 show_Percent = Util.Util().show_Percent
 
+
 class Skyfield:
     date = datetime.utcnow()
     reference_Datetime = date.year, date.month, date.day, date.hour, date.minute
@@ -79,7 +80,7 @@ class Skyfield:
             moon_Degree.append(moon)
 
         first_Quarter_Time = t.time()
-        print(show_Percent(get_Percent(PT1, dataFrame_Length))+" concluido")
+        print(show_Percent(get_Percent(PT1, dataFrame_Length)) + " concluido")
         print(len(moon_Degree))
         print(str(first_Quarter_Time - start) + "\n")
 
@@ -88,7 +89,7 @@ class Skyfield:
             moon_Degree.append(moon)
 
         second_Quarter_Time = t.time()
-        print(show_Percent(get_Percent(PT2, dataFrame_Length))+" concluido")
+        print(show_Percent(get_Percent(PT2, dataFrame_Length)) + " concluido")
         print(len(moon_Degree))
         print(str(second_Quarter_Time - first_Quarter_Time) + "\n")
 
@@ -97,7 +98,7 @@ class Skyfield:
             moon_Degree.append(moon)
 
         third_Quarter_Time = t.time()
-        print(show_Percent(get_Percent(PT3, dataFrame_Length))+" concluido")
+        print(show_Percent(get_Percent(PT3, dataFrame_Length)) + " concluido")
         print(len(moon_Degree))
         print(str(third_Quarter_Time - second_Quarter_Time) + "\n")
 
@@ -105,11 +106,11 @@ class Skyfield:
             moon = self.set_Datetime(element).get_Moon_Phase()
             moon_Degree.append(moon)
 
-        print(show_Percent(get_Percent(PT4, dataFrame_Length))+" concluido")
+        print(show_Percent(get_Percent(PT4, dataFrame_Length)) + " concluido")
         print(len(moon_Degree))
         print(str(t.time() - third_Quarter_Time) + "\n")
 
-        print("Duration: " + str(t.time() - start)+ "\n")
+        print("Duration: " + str(t.time() - start) + "\n")
         return moon_Degree
 
     def get_Moon_Phases_(self, moon_Degree):

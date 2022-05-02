@@ -49,7 +49,7 @@ class DataPlot:
             plt.xlim(min(dataPlotConfig.data.index), max(dataPlotConfig.data.index))
             plt.xlabel(dataPlotConfig.axis_X)
             plt.ylabel(dataPlotConfig.axis_Y)
-            plt.grid('True')
+            plt.grid("True")
             plt.show()
         except Exception as e:
             print("[Error]: " + str(e))
