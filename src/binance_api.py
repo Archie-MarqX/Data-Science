@@ -1,10 +1,8 @@
-# %%
 import time as t
 from binance.client import Client
 from binance.enums import *
 
 
-# %%
 # spot Klines
 class spot_Kline:
     def __init__(self, api_key, secret_key):
