@@ -1,5 +1,5 @@
 # Import Dependencies
-import technicalAnalysis as ta
+import technical_analysis as ta
 import skyfield as sky
 import data_plot as dp
 import strategy as st
