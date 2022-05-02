@@ -1,7 +1,7 @@
 # Import Dependencies
 import technicalAnalysis as ta
 import Skyfield as sky
-import dataPlot as dp
+import data_plot as dp
 import strategy as st
 
 # Import Libraries
