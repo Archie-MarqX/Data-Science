@@ -16,11 +16,11 @@ class Skyfield:
     date = datetime.utcnow()
     reference_Datetime = date.year, date.month, date.day, date.hour, date.minute
 
-    def set_Datetime(self, date: datetime.datetime, GMT=0):
+    def set_Datetime(self, date, GMT=0):
         """
         It takes a datetime object and sets the reference_Datetime attribute to a tuple of the year, month,
         day, hour, and minute of the datetime object
-        
+
         :param date: datetime.datetime
         :type date: datetime.datetime
         :param GMT: The timezone of the reference date, defaults to 0 (optional)
@@ -39,7 +39,7 @@ class Skyfield:
         """
         This function takes two float values, latitude and longitude, and returns a tuple of those two
         values
-        
+
         :param latitude: float
         :type latitude: float
         :param longitude: float
@@ -49,7 +49,7 @@ class Skyfield:
         latlong = latitude, longitude
         return latlong
 
-    def get_Moon_Phase(self):
+    def get_Moon_Degree(self):
         """
         It returns the phase of the moon in degrees, where 0 degrees is a new moon, 90 degrees is a first
         quarter moon, 180 degrees is a full moon, and 270 degrees is a last quarter moon
@@ -64,7 +64,7 @@ class Skyfield:
     def get_Planet_Phase(self, lat=42.21 * N, long=-71.03 * W, planet="mars"):
         """
         It takes a date and time, and returns the phase of the planet (as a percentage) at that time
-        
+
         :param lat: latitude of the observer
         :param long: longitude of the observer
         :param planet: The planet you want to get the phase of, defaults to mars (optional)
@@ -84,11 +84,11 @@ class Skyfield:
 
         return phase
 
-    def get_Moon_Degree(self, yahoo_DataFrame):  # get moon degree based on Dataframe index
+    def get_Moon_Phase(self, yahoo_DataFrame):  # get moon degree based on Dataframe index
         """
         It takes a dataframe, splits it into 4 parts, and then for each part, it gets the moon phase for
         each date in that part.
-        
+
         :param yahoo_DataFrame: Dataframe with the stock data
         :return: A list of strings, with the moon phase name.
         """
@@ -113,7 +113,7 @@ class Skyfield:
 
         print("Loop de Atribuição iniciado")
         for element in first_Quarter:
-            moon = self.set_Datetime(element).get_Moon_Phase()
+            moon = self.set_Datetime(element).get_Moon_Degree()
             moon_Degree.append(moon)
 
         first_Quarter_Time = t.time()
@@ -122,7 +122,7 @@ class Skyfield:
         print(str(first_Quarter_Time - start) + "\n")
 
         for element in second_Quarter:
-            moon = self.set_Datetime(element).get_Moon_Phase()
+            moon = self.set_Datetime(element).get_Moon_Degree()
             moon_Degree.append(moon)
 
         second_Quarter_Time = t.time()
@@ -131,7 +131,7 @@ class Skyfield:
         print(str(second_Quarter_Time - first_Quarter_Time) + "\n")
 
         for element in third_Quarter:
-            moon = self.set_Datetime(element).get_Moon_Phase()
+            moon = self.set_Datetime(element).get_Moon_Degree()
             moon_Degree.append(moon)
 
         third_Quarter_Time = t.time()
@@ -140,7 +140,7 @@ class Skyfield:
         print(str(third_Quarter_Time - second_Quarter_Time) + "\n")
 
         for element in last_Quarter:
-            moon = self.set_Datetime(element).get_Moon_Phase()
+            moon = self.set_Datetime(element).get_Moon_Degree()
             moon_Degree.append(moon)
 
         print(show_Percent(get_Percent(PT4, dataFrame_Length)) + " concluido")
@@ -150,7 +150,7 @@ class Skyfield:
         print("Duration: " + str(t.time() - start) + "\n")
         return moon_Degree
 
-    def get_Moon_Phases_(self, moon_Degree):
+    def get_Moon_Degrees_(self, moon_Degree):
         moon_Phases = []
 
         for element in moon_Degree:
@@ -167,8 +167,7 @@ class Skyfield:
 
         return moon_Phases
 
-
-    def get_Moon_Phases_2_Phases(self, moon_Degree):
+    def get_Moon_Degrees_2_Phases(self, moon_Degree):
         moon_Phases = []
 
         for element in moon_Degree:
