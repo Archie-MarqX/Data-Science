@@ -1,14 +1,14 @@
 import datetime
 import time as t
-from shared import Util
+import util
 from skyfield.api import *
 from skyfield.framelib import *
 from skyfield import almanac
 from skyfield import api
 
 
-get_Percent = Util.Util().get_Percent
-show_Percent = Util.Util().show_Percent
+get_Percent = util.Util().get_Percent
+show_Percent = util.Util().show_Percent
 
 
 # It's a class that gets the moon phase based on a date and time.
