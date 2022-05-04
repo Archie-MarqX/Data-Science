@@ -11,11 +11,21 @@ get_Percent = Util.Util().get_Percent
 show_Percent = Util.Util().show_Percent
 
 
+# It's a class that gets the moon phase based on a date and time.
 class Skyfield:
     date = datetime.utcnow()
     reference_Datetime = date.year, date.month, date.day, date.hour, date.minute
 
-    def set_Datetime(self, date, GMT=0):
+    def set_Datetime(self, date: datetime.datetime, GMT=0):
+        """
+        It takes a datetime object and sets the reference_Datetime attribute to a tuple of the year, month,
+        day, hour, and minute of the datetime object
+        
+        :param date: datetime.datetime
+        :type date: datetime.datetime
+        :param GMT: The timezone of the reference date, defaults to 0 (optional)
+        :return: The object itself.
+        """
         self.reference_Datetime = (
             date.year,
             date.month,
@@ -25,11 +35,26 @@ class Skyfield:
         )
         return self
 
-    def set_latlong(self, latitude, longitude):
+    def set_latlong(self, latitude: float, longitude: float):
+        """
+        This function takes two float values, latitude and longitude, and returns a tuple of those two
+        values
+        
+        :param latitude: float
+        :type latitude: float
+        :param longitude: float
+        :type longitude: float
+        :return: The latitude and longitude of the location.
+        """
         latlong = latitude, longitude
         return latlong
 
     def get_Moon_Phase(self):
+        """
+        It returns the phase of the moon in degrees, where 0 degrees is a new moon, 90 degrees is a first
+        quarter moon, 180 degrees is a full moon, and 270 degrees is a last quarter moon
+        :return: The phase of the moon in degrees.
+        """
         ts = load.timescale()
         eph = api.load("de421.bsp")
         t = ts.utc(*self.reference_Datetime)
@@ -37,6 +62,14 @@ class Skyfield:
         return phase.degrees
 
     def get_Planet_Phase(self, lat=42.21 * N, long=-71.03 * W, planet="mars"):
+        """
+        It takes a date and time, and returns the phase of the planet (as a percentage) at that time
+        
+        :param lat: latitude of the observer
+        :param long: longitude of the observer
+        :param planet: The planet you want to get the phase of, defaults to mars (optional)
+        :return: The phase of the planet in degrees.
+        """
         ts = load.timescale()
         t = ts.utc(*self.reference_Datetime)
 
@@ -51,12 +84,18 @@ class Skyfield:
 
         return phase
 
-    # Refatorar o código
-    def get_Moon_Degree(self, yf_Dataframe):  # get moon degree based on Dataframe index
+    def get_Moon_Degree(self, yahoo_DataFrame):  # get moon degree based on Dataframe index
+        """
+        It takes a dataframe, splits it into 4 parts, and then for each part, it gets the moon phase for
+        each date in that part.
+        
+        :param yahoo_DataFrame: Dataframe with the stock data
+        :return: A list of strings, with the moon phase name.
+        """
         dateTime = []
-        dataFrame_Length = len(yf_Dataframe)
+        dataFrame_Length = len(yahoo_DataFrame)
 
-        for element in yf_Dataframe.index:
+        for element in yahoo_DataFrame.index:
             dateTime.append(element)
 
         PT1 = int((len(dateTime) - 1) * 0.25)
@@ -128,7 +167,6 @@ class Skyfield:
 
         return moon_Phases
 
-    # %%
 
     def get_Moon_Phases_2_Phases(self, moon_Degree):
         moon_Phases = []
