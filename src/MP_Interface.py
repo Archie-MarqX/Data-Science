@@ -25,7 +25,7 @@ def Moon_Phase_Strategy(ticker):
     """
     yahoo_DataFrame = yf.download(ticker)
 
-    moon_Degree = Astro.get_Moon_Degree(
+    moon_Degree = Astro.get_Moon_Phase(
         yahoo_DataFrame
     )  # get moon degree based on Dataframe index
 
