@@ -1,6 +1,6 @@
 # Import Dependencies
 import technical_analysis as ta
-import skyfield as sky
+import astronomy as sky
 import data_plot as dp
 import strategy as st
 
@@ -116,3 +116,5 @@ inputtxt.pack()
 mp_Button.pack()
 asset_Button.pack()
 root.mainloop()
+
+# %%

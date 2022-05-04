@@ -1,6 +1,6 @@
 # Import Dependencies
 import technical_analysis as ta
-import skyfield as sky
+import astronomy as sky
 
 # Import libraries
 import pandas as pd
