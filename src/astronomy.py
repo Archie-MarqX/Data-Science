@@ -1,4 +1,3 @@
-# %%
 import datetime
 import time as t
 from shared import Util
@@ -7,7 +6,6 @@ from skyfield.framelib import *
 from skyfield import almanac
 from skyfield import api
 
-# %%
 
 get_Percent = Util.Util().get_Percent
 show_Percent = Util.Util().show_Percent
