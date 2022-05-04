@@ -84,7 +84,8 @@ class Skyfield:
 
         return phase
 
-    def get_Moon_Phase(self, yahoo_DataFrame):  # get moon degree based on Dataframe index
+    # get moon degree based on Dataframe index
+    def get_Moon_Phase(self, yahoo_DataFrame):
         """
         It takes a dataframe, splits it into 4 parts, and then for each part, it gets the moon phase for
         each date in that part.
