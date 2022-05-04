@@ -150,7 +150,7 @@ class Skyfield:
         print("Duration: " + str(t.time() - start) + "\n")
         return moon_Degree
 
-    def get_Moon_Degrees_(self, moon_Degree):
+    def get_Moon_4_Phases(self, moon_Degree):
         moon_Phases = []
 
         for element in moon_Degree:
@@ -167,7 +167,7 @@ class Skyfield:
 
         return moon_Phases
 
-    def get_Moon_Degrees_2_Phases(self, moon_Degree):
+    def get_Moon_2_Phases(self, moon_Degree):
         moon_Phases = []
 
         for element in moon_Degree:
