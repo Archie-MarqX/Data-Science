@@ -1,8 +1,8 @@
 # Import Dependencies
-import technical_analysis as ta
-import astronomy as sky
-import data_plot as dp
-import strategy as st
+from controller import technical_analysis as ta
+from controller import astronomy as sky
+from controller import data_plot as dp
+from controller import strategy as st
 
 # Import Libraries
 import yfinance as yf
