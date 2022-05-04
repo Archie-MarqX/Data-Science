@@ -14,7 +14,7 @@ class Moon_Phase:
     def strategy_MoonPhase(self, symbol, timeInDay, moon_Degrees):
         dataFrame = pd.DataFrame()
         dataFrame["Adj Close"] = symbol["Adj Close"]  # DataFrame
-        dataFrame["MoonPhase"] = Astro.get_Moon_Phases_2_Phases(moon_Degrees)
+        dataFrame["MoonPhase"] = Astro.get_Moon_2_Phases(moon_Degrees)
         dataFrame["Regra"] = np.where(dataFrame["MoonPhase"] == "Lua Nova", 1, 0)
         dataFrame["Position"] = (
             dataFrame["Regra"].diff().fillna(0)
