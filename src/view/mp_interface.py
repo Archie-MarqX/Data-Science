@@ -1,12 +1,18 @@
-# Import Dependencies
-from controller import technical_analysis as ta
-from controller import astronomy as sky
-from controller import data_plot as dp
-from controller import strategy as st
-
 # Import Libraries
 import yfinance as yf
 from tkinter import *
+import sys
+import os
+
+# Import Dependencies
+os.chdir("C:\\Users\\mateu\\Documents\\GitHub\\Data-Science\\src\\controller")
+sys.path.append("C:\\Users\\mateu\\Documents\\GitHub\\Data-Science\\src\\controller")
+
+import technical_analysis as ta
+import astronomy as sky
+import data_plot as dp
+import strategy as st
+
 
 # Creating an object of the class Skyfield, DataPlot and Moon_Phase.
 Astro = sky.Skyfield()
@@ -20,7 +26,7 @@ def Moon_Phase_Strategy(ticker):
     gets the best variables, gets the moon phase DataFrame with best variables and strategy return, sets
     the DataPlotConfig object, plots the DataFrame, gets the mean return and standard deviation of the
     return
-    
+
     :param ticker: The ticker symbol of the stock you want to analyze
     """
     yahoo_DataFrame = yf.download(ticker)
@@ -50,11 +56,12 @@ def Moon_Phase_Strategy(ticker):
         .set_dataFrame(moon_Phase_DataFrame["Retorno_MP"])
     )  # set DataPlotConfig object
 
-    # plot.simple_Plot(config)  # plot DataFrame
+    # plot DataFrame
     plot.simple_Plot(config)
 
-    mean_Return = moon_Phase_DataFrame["Retorno_MP"].mean()  # mean return
-    std_Return = moon_Phase_DataFrame["Retorno_MP"].std()  # standard deviation of the return
+# Calculating the mean and standard deviation of the return.
+    mean_Return = moon_Phase_DataFrame["Retorno_MP"].mean()
+    std_Return = moon_Phase_DataFrame["Retorno_MP"].std()
 
     print("Média De Retorno: " + str(mean_Return))
     print("Média De Desvio Padrão: " + str(std_Return))
@@ -64,7 +71,7 @@ def Asset_Return(ticker):
     """
     It downloads the data from Yahoo Finance, calculates the asset return, removes the first row (which
     is NaN) and plots the asset return
-    
+
     :param ticker: The ticker of the asset you want to download
     :return: A DataFrame with the asset return.
     """
