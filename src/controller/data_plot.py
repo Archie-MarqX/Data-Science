@@ -53,6 +53,42 @@ class DataPlot:
             plt.show()
         except Exception as e:
             print("[Error]: " + str(e))
+    def log_simple_plot(self, dataPlotConfig: DataPlotConfig):
+        """
+        It plots a simple line graph with a logarithmic scale on the y-axis.
+        
+        :param dataPlotConfig: DataPlotConfig
+        :type dataPlotConfig: DataPlotConfig
+        """
+        try:
+            plt.figure(figsize=(26.66667 * 0.75, 15 * 0.75))
+            plt.plot(
+                dataPlotConfig.data,
+                label="Ativo",
+                alpha=0.75,
+                linewidth=2,
+                color="blue",
+            )
+            plt.hlines(
+                0,
+                min(dataPlotConfig.data.index.values),
+                max(dataPlotConfig.data.index.values),
+            )
+            y = dataPlotConfig.data.values
+            plt.vlines(dataPlotConfig.data.idxmax(), 0, dataPlotConfig.data.max())
+            plt.title(dataPlotConfig.title)
+            plt.legend(loc="lower right")
+            plt.ylim(min(y), max(y))
+            plt.xlim(min(dataPlotConfig.data.index), max(dataPlotConfig.data.index))
+            plt.xlabel(dataPlotConfig.axis_X)
+            plt.ylabel(dataPlotConfig.axis_Y)
+            plt.yscale('log')
+            plt.grid("True")
+            plt.show()
+        except Exception as e:
+            print("[Error]: " + str(e))
+
+
 
     def complex_Plot(self, dataPlotConfig: DataPlotConfig):
         dateList = []
