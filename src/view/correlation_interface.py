@@ -9,11 +9,11 @@ from tkinter import *
 os.chdir("C:\\Users\\mateu\\Documents\\GitHub\\Data-Science\\src\\controller")
 sys.path.append("C:\\Users\\mateu\\Documents\\GitHub\\Data-Science\\src\\controller")
 
-# import data_plot as dp
+# Import data_plot as dp
 import data_analysis as da
 
 
-LRM = da.LinearRegressionModels()
+linear_regression = da.LinearRegressionModels()
 
 
 def correlation(first_asset, second_asset, day):
@@ -48,7 +48,7 @@ def correlation(first_asset, second_asset, day):
     df2["Close"] = adjusted_DataFrame["second_asset"]
 
     # Calculating the correlation between the two assets.
-    return LRM.correlation(df1, df2, day)
+    return linear_regression.correlation(df1, df2, day)
 
 
 # It creates a window with the title "Ticker Chart".
