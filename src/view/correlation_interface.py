@@ -1,4 +1,3 @@
-# %%
 # Import Libraries
 import yfinance as yf
 import pandas as pd
@@ -13,7 +12,6 @@ sys.path.append("C:\\Users\\mateu\\Documents\\GitHub\\Data-Science\\src\\control
 # import data_plot as dp
 import data_analysis as da
 
-# %%
 
 LRM = da.LinearRegressionModels()
 
