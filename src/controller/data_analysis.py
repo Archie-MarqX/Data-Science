@@ -3,14 +3,14 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 
 
-class LinearRegression:
+class LinearRegressionModels:
     def rsquared(self, x, y):
         xArray = np.array(x).reshape((-1, 1))
         yArray = np.array(y).reshape((-1, 1))
 
         model = LinearRegression().fit(xArray, yArray)
         r_sq = model.score(xArray, yArray)
-        print("coefficient of determination:", r_sq)
+        return r_sq
 
     def correlation(self, firstAsset_DataFrame, secondAsset_DataFrame):
 
