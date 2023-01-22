@@ -181,3 +181,27 @@ class Skyfield:
                 moon_Phases.append("Lua Nova")
 
         return moon_Phases
+
+    def calculate_moon_phase(self, dataFrame):
+        """
+        Calculates the phase of the moon for each date in the provided DataFrame.
+        :param dataFrame: DataFrame with the dates for which the moon phase should be calculated.
+        :return: A DataFrame with the moon phase (in degrees) and a label indicating whether it is a new or full moon for each date in the input DataFrame.
+        """
+        # Create an empty list to store the datetime objects
+        datetime_List = []
+        # Iterate through the dates in the DataFrame's index
+        for date in dataFrame.index:
+            # Add the timezone information to each date
+            date_with_timezone = pytz.utc.localize(date)
+            # Append the datetime object to the list
+            datetime_List.append(date_with_timezone)
+        # Calculate the moon phase for each date in the list
+        moon_phase = almanac.moon_phase(eph, ts.utc(datetime_List)).degrees
+        # Create a new DataFrame with the moon phase data
+        df = pd.DataFrame(moon_phase, columns=['moon_degrees'], index=dataFrame.index)
+        # Add a column for the moon phase label
+        df['moon_phase'] = df['moon_degrees'].where(df['moon_degrees'] < 180, 'New Moon')
+        df['moon_phase'] = df['moon_phase'].where(df['moon_degrees'] >= 180, 'Full Moon')
+        # Return the final DataFrame
+        return df
