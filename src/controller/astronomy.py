@@ -177,9 +177,6 @@ class Skyfield:
                 moon_Phases.append("Lua Nova")
             if element >= 180 and element < 360:
                 moon_Phases.append("Lua Cheia")
-            if element >= 360:
-                moon_Phases.append("Lua Nova")
-
         return moon_Phases
 
     def calculate_moon_phase(self, dataFrame):
