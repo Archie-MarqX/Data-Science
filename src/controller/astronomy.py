@@ -1,14 +1,19 @@
-import datetime
+from datetime import datetime, timezone
+import pytz
+import numpy as np
 import time as t
 import util
+import pandas as pd
+import yfinance as yf
 from skyfield.api import *
 from skyfield.framelib import *
 from skyfield import almanac
 from skyfield import api
 
-
 get_Percent = util.Util().get_Percent
 show_Percent = util.Util().show_Percent
+eph = load("de421.bsp")
+ts = load.timescale()
 
 
 # It's a class that gets the moon phase based on a date and time.
@@ -55,8 +60,6 @@ class Skyfield:
         quarter moon, 180 degrees is a full moon, and 270 degrees is a last quarter moon
         :return: The phase of the moon in degrees.
         """
-        ts = load.timescale()
-        eph = api.load("de421.bsp")
         t = ts.utc(*self.reference_Datetime)
         phase = almanac.moon_phase(eph, t)
         return phase.degrees
@@ -70,10 +73,8 @@ class Skyfield:
         :param planet: The planet you want to get the phase of, defaults to mars (optional)
         :return: The phase of the planet in degrees.
         """
-        ts = load.timescale()
         t = ts.utc(*self.reference_Datetime)
 
-        eph = load("de421.bsp")
         sun, Planet, earth = eph["sun"], eph[planet], eph["earth"]
         city = earth + wgs84.latlon(lat, long)
 
