@@ -6,7 +6,7 @@ import util
 import pandas as pd
 import yfinance as yf
 from skyfield.api import load, N, S, W, E, wgs84
-from skyfield.framelib import *
+from skyfield.framelib import ecliptic_frame
 from skyfield import almanac
 from skyfield import api
 
