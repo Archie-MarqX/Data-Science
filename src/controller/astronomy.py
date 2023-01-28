@@ -1,11 +1,11 @@
-from datetime import datetime, timezone
+from datetime import datetime
 import pytz
 import numpy as np
 import time as t
 import util
 import pandas as pd
 import yfinance as yf
-from skyfield.api import *
+from skyfield.api import load, N, S, W, E, wgs84
 from skyfield.framelib import *
 from skyfield import almanac
 from skyfield import api
@@ -179,26 +179,32 @@ class Skyfield:
                 moon_Phases.append("Lua Cheia")
         return moon_Phases
 
-    def calculate_moon_phase(self, dataFrame):
+def calculate_moon_phase(self, dataframe):
         """
         Calculates the phase of the moon for each date in the provided DataFrame.
-        :param dataFrame: DataFrame with the dates for which the moon phase should be calculated.
+        The phase of the moon is measured in degrees, with 0-180 degrees being a new moon and 180-360 degrees being a full moon.
+        :param dataframe: DataFrame with the dates for which the moon phase should be calculated.
+        The date should be in the index of the DataFrame and in a datetime format.
         :return: A DataFrame with the moon phase (in degrees) and a label indicating whether it is a new or full moon for each date in the input DataFrame.
+        The label will be "New Moon" or "Full Moon" depending on the moon phase.
         """
-        # Create an empty list to store the datetime objects
-        datetime_List = []
-        # Iterate through the dates in the DataFrame's index
-        for date in dataFrame.index:
-            # Add the timezone information to each date
-            date_with_timezone = pytz.utc.localize(date)
-            # Append the datetime object to the list
-            datetime_List.append(date_with_timezone)
-        # Calculate the moon phase for each date in the list
-        moon_phase = almanac.moon_phase(eph, ts.utc(datetime_List)).degrees
+        # Create a copy of the input DataFrame to avoid modifying the original data
+        moon_phases_df = dataframe.copy()
+        # Add the timezone information to each date in the DataFrame's index
+        # This is to make sure the date is in UTC time, which is the time standard used by the almanac library
+        moon_phases_df.index = dataframe.copy().index.map(pytz.utc.localize)
+
+        # Calculate the moon phase for each date in the index
+        # The almanac.moon_phase function returns the phase of the moon in degrees for a given date
+        phase_degrees = moon_phases_df.index.map(lambda date: almanac.moon_phase(eph, ts.utc(date)).degrees)
+
         # Create a new DataFrame with the moon phase data
-        df = pd.DataFrame(moon_phase, columns=['moon_degrees'], index=dataFrame.index)
+        phase_df = pd.DataFrame(phase_degrees, columns=['moon_degrees'], index=dataframe.index)
+
         # Add a column for the moon phase label
-        df['moon_phase'] = df['moon_degrees'].where(df['moon_degrees'] < 180, 'New Moon')
-        df['moon_phase'] = df['moon_phase'].where(df['moon_degrees'] >= 180, 'Full Moon')
+        # The .where method is used to create the label based on the value of the 'moon_degrees' column
+        phase_df['moon_phase'] = phase_df['moon_degrees'].where(phase_df['moon_degrees'] < 180, 'New Moon')
+        phase_df['moon_phase'] = phase_df['moon_phase'].where(phase_df['moon_degrees'] >= 180, 'Full Moon')
         # Return the final DataFrame
-        return df
+        return phase_df
+
