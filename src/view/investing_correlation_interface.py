@@ -27,7 +27,8 @@ def correlation(first_asset, second_asset, day):
     :return: The correlation between the two assets.
     """
 
-    # Downloading the data from the two assets.
+
+    # Searching for the assets and downloading the data. #TODO: Currencies are not properly working.
     first_asset_search = ip.search_quotes(text=first_asset, products=['cryptos','stocks','etfs','commodities','currencies','bonds','indices'])
     first_DataFrame = first_asset_search[0].retrieve_historical_data(from_date='01/01/2011', to_date='05/05/2022')
 
@@ -120,5 +121,3 @@ second_asset_txt.pack()
 day_txt.pack()
 correlation_Button.pack()
 root.mainloop()
-
-# %%
